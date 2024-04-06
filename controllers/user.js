@@ -7,7 +7,6 @@ import bcrypt from "bcrypt"
 export const getallusers =  async (req,res)=>{
 
     try {
-        
         const users = await User.find({});
 
     res.status(201).json({
@@ -47,16 +46,15 @@ export const getuserdetails =async (req,res)=>{
 export const register =async(req,res)=>{
     try {
 
-        const {name,email,password,profilepic,bio} = req.body;
-        let user = await User.findOne({email})
-        const newlink= req.file.path
+        const {name,studentid,email,department,password} = req.body;
+        let user = await User.findOne({studentid})
     
         if(user) return res.status(404).json({
             success:false,
             message:"user already exist",
         })
         const hashedpassword = await bcrypt.hash(password,10);
-        user = await User.create({name,email,bio,password:hashedpassword,profilepic:newlink,bio})
+        user = await User.create({name,studentid,email,department,password:hashedpassword})
     
         sendcookie(user,res,"registered successfully",201)
         
@@ -74,18 +72,18 @@ export const register =async(req,res)=>{
 
         try {
             
-            const {email,password}=req.body;
-        let user = await User.findOne({email}).select("+password");
+            const {studentid,password}=req.body;
+        let user = await User.findOne({studentid}).select("+password");
 
         if(!user) return res.json({
             success:false,
-            message:"invalid email or password",
+            message:"invalid studentid or password",
         })
         
         const isMatch = await bcrypt.compare(password,user.password);
         if(!isMatch) res.status(404).json({
             success:false,
-            message:"invalid email or password",
+            message:"invalid studentid or password",
         })
         sendcookie(user,res,`welcome back ${user.name} `,201)
         } catch (error) {
@@ -125,14 +123,14 @@ export const register =async(req,res)=>{
             const task = await User.findById(req.user.id);
 
         task.name=req.body.name;
-        task.profilepic=req.body.profilepic;
-        task.bio=req.body.bio;
-
+        task.email=req.body.email;
+        task.department=req.body.department;
+        
         await task.save();
 
         res.status(200).json({
             success:true,
-            message:"data updated"
+            message:"user updated"
         })
 
         } catch (error) {
@@ -159,15 +157,13 @@ export const register =async(req,res)=>{
     
         res.status(200).json({
             success:true,
-            message:"task deleted"
+            message:"user deleted"
         })
             
         } catch (error) {
             res.status(404).json({
                 success:false,})
-        }
-
-        
+        }        
         
     }
     

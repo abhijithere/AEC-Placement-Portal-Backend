@@ -3,8 +3,12 @@ import mongoose from "mongoose";
 const userschema= new mongoose.Schema({
   name:{
     type:String,
-    unique:true,
     required: true,
+},
+studentid:{
+  type:String,
+  unique:true,
+  required: true,
 },
 email:{
     type:String,
@@ -12,21 +16,14 @@ email:{
     required: true,
 },
 password : {
-    type:String,
-    select:true,
-    required: true,
-},
-profilepic:{
   type:String,
-  unique:true,
+  select:true,
   required: true,
 },
-bio:{
+department:{
   type:String,
-  unique:true,
-  required: true,
+  required:true,
 },
-
   })
   
  export const User =  mongoose.model("User",userschema);

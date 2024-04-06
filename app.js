@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import {connectdb}  from "./db/database.js";
 import {config} from 'dotenv'
 import router from "./routes/user.js";
+import teacherrouter from './routes/teacher.js'
 import cors from "cors";
 
 
@@ -25,7 +26,7 @@ app.use(cors({
 }))
 
 app.use("/api/v1/users",router)
-
+app.use("/api/v1/teachers",teacherrouter)
 
 
 
@@ -35,7 +36,7 @@ app.use("/api/v1/users",router)
 
 
 app.get("/",(req,res)=>{
-    res.send("server is working properly")
+    res.send("server is working properly 11244")
 })
 
 
