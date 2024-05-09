@@ -2,13 +2,13 @@ import  express  from "express";
 
 import { login,register,getallusers,getuserdetails ,logout,updateuser,deleteUser} from "../controllers/user.js";
 
-import { isAuthenticated } from "../middleware/auth.js";
+import {authorizeRoles, isAuthenticated } from "../middleware/auth.js";
 
 const router =express.Router();
 
 
 router.post("/new",register)
-router.get("/alluser",isAuthenticated,getallusers) 
+router.get("/alluser",isAuthenticated,authorizeRoles("Admin"),getallusers) 
 
 router.post("/login",login)
 

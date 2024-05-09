@@ -58,6 +58,7 @@ export const register =async(req,res)=>{
     
         sendcookie(user,res,"registered successfully",201)
         
+        
     } catch (error) {
         res.status(404).json({
             success:false,
