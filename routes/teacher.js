@@ -9,7 +9,7 @@ const router =express.Router();
 
 router.post("/new",register)
 router.get("/alluser",isAuthenticatedteacher,authorizeRoles("Admin"),getallusers)
-router.get("/allstudent",isAuthenticatedteacher,getallstudent)
+router.get("/allstudent",isAuthenticatedteacher,authorizeRoles("Admin"),getallstudent)
 
 router.post("/login",login)
 
