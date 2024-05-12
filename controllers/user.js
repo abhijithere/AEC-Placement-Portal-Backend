@@ -28,17 +28,13 @@ export const getallusers = asyncerror( async (req,res)=>{
 
 export const getuserdetails = asyncerror(async (req,res)=>{
 
-    try {
+    const user = await User.findById(req.user.id);
+
+
     res.status(200).json({
         success:true,
-        user:req.user,
+        user,
     })
-    } catch (error) {
-        res.status(404).json({
-            success:false,
-        })
-    }
-
     
 })
 
