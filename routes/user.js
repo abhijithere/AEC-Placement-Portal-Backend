@@ -8,7 +8,7 @@ const router =express.Router();
 
 
 router.post("/new",register)
-router.get("/alluser",isAuthenticated,authorizeRoles("Admin"),getallusers) 
+router.get("/alluser",isAuthenticated,getallusers) 
 
 router.post("/login",login)
 
