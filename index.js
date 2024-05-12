@@ -4,6 +4,7 @@ import {connectdb}  from "./db/database.js";
 import {config} from 'dotenv'
 import router from "./routes/user.js";
 import teacherrouter from './routes/teacher.js'
+import bodyParser from "body-parser";
 import cors from "cors";
 
 
@@ -19,6 +20,8 @@ connectdb();
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors({
     origin:[process.env.FRONTEND_URL],
     methods:["GET","POST","PUT","DELETE"],
