@@ -1,10 +1,12 @@
 import { User } from "../models/users.js";
 import { sendcookie } from "../utils/features.js";
 import bcrypt from "bcrypt"
+import { asyncerror } from "../middleware/catchAsyncError.js";
 
 
 
-export const getallusers =  async (req,res)=>{
+
+export const getallusers = asyncerror( async (req,res)=>{
 
     try {
         const users = await User.find({});
@@ -22,13 +24,11 @@ export const getallusers =  async (req,res)=>{
 
     
 
-}
+})
 
-export const getuserdetails =async (req,res)=>{
+export const getuserdetails = asyncerror(async (req,res)=>{
 
     try {
-        console.log(req.user._id)
-    console.log("hello")
     res.status(200).json({
         success:true,
         user:req.user,
@@ -40,10 +40,10 @@ export const getuserdetails =async (req,res)=>{
     }
 
     
-}
+})
 
 
-export const register =async(req,res)=>{
+export const register =asyncerror(async(req,res)=>{
     try {
 
         const {name,studentid,email,department,password} = req.body;
@@ -67,13 +67,13 @@ export const register =async(req,res)=>{
  
 
 
-}
+})
 
-    export const login =async (req,res)=>{
+    export const login = asyncerror(async (req,res)=>{
 
         try {
             
-            const {studentid,password}=req.body;
+     const {studentid,password}=req.body;
         let user = await User.findOne({studentid}).select("+password");
 
         if(!user) return res.json({
@@ -97,8 +97,8 @@ export const register =async(req,res)=>{
         
         
 
-    }
-    export const logout = (req,res)=>{
+    })
+    export const logout = asyncerror((req,res)=>{
         try {
             res.status(200).cookie("token","",{
                 expires: new Date(Date.now()),
@@ -116,9 +116,9 @@ export const register =async(req,res)=>{
         }
 
         
-    }
+    })
 
-    export const updateuser =async(req,res)=>{
+    export const updateuser =asyncerror(async(req,res)=>{
 
         try {
             const task = await User.findById(req.user.id);
@@ -140,9 +140,9 @@ export const register =async(req,res)=>{
         }
 
         
-    }
+    })
 
-    export const deleteUser =async(req,res,next)=>{
+    export const deleteUser = asyncerror(async(req,res,next)=>{
 
         try {
 
@@ -166,5 +166,4 @@ export const register =async(req,res)=>{
                 success:false,})
         }        
         
-    }
-    
+    })

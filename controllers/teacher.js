@@ -193,7 +193,7 @@ export const getallusers = asyncerror(
     }
 ) 
 
-export const getuserdetails =async (req,res)=>{
+export const getuserdetails =asyncerror(async (req,res)=>{
 
     try {
         console.log(req.user._id)
@@ -209,10 +209,10 @@ export const getuserdetails =async (req,res)=>{
     }
 
     
-}
+})
 
 
-export const register =async(req,res)=>{
+export const register =asyncerror(async(req,res)=>{
     try {
 
         const {name,teacherid,email,department,password} = req.body;
@@ -236,7 +236,7 @@ export const register =async(req,res)=>{
  
 
 
-}
+})
 
     export const login = asyncerror(
         async (req,res)=>{
@@ -272,7 +272,7 @@ export const register =async(req,res)=>{
 
 
 
-    export const logout = (req,res)=>{
+    export const logout = asyncerror((req,res)=>{
         try {
             res.status(200).cookie("token","",{
                 expires: new Date(Date.now()),
@@ -290,9 +290,9 @@ export const register =async(req,res)=>{
         }
 
         
-    }
+    })
 
-    export const updateuser =async(req,res)=>{
+    export const updateuser =asyncerror(async(req,res)=>{
 
         try {
             const task = await Teacher.findById(req.user.id);
@@ -314,9 +314,9 @@ export const register =async(req,res)=>{
         }
 
         
-    }
+    })
 
-    export const deleteUser =async(req,res,next)=>{
+    export const deleteUser =asyncerror(async(req,res,next)=>{
 
         try {
 
@@ -340,5 +340,5 @@ export const register =async(req,res)=>{
                 success:false,})
         }        
         
-    }
+    })
     
