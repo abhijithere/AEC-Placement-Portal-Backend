@@ -3,8 +3,9 @@ import { Teacher } from "../models/teacher.js";
 import  Jwt  from "jsonwebtoken";
 import ErrorHandler from "./error.js";
 export const isAuthenticated = async (req,res,next)=>{
-    const {token}= await req.cookies;
-    if(!token) { return res.status(404).json({
+    const token =  req.cookies;
+    if(!token) { 
+      return res.status(401).json({
      success:false,
      message:"login first",
      });

@@ -16,7 +16,7 @@ export const getallusers = asyncerror( async (req,res)=>{
         users,
     })
     } catch (error) {
-        res.status(404).json({
+        res.status(401).json({
             success:false,
         })
         
